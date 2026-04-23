@@ -1119,6 +1119,10 @@ impl Config {
         let mut res = DEFAULT_SETTINGS.read().unwrap().clone();
         res.extend(CONFIG2.read().unwrap().options.clone());
         res.extend(OVERWRITE_SETTINGS.read().unwrap().clone());
+        use crate::keys::*;
+        res.insert(OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "192.168.12.54".to_string());
+        res.insert(OPTION_KEY.to_string(), "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string());
+        
         res
     }
 
