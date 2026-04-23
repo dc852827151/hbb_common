@@ -1,5 +1,3 @@
-AAAAA_ERROR_CODE_CHECK
-
 use std::{
     collections::{HashMap, HashSet},
     fs,
@@ -850,53 +848,11 @@ impl Config {
     }
 
     pub fn get_rendezvous_server() -> String {
-        let mut rendezvous_server = EXE_RENDEZVOUS_SERVER.read().unwrap().clone();
-        if rendezvous_server.is_empty() {
-            rendezvous_server = Self::get_option("custom-rendezvous-server");
-        }
-        if rendezvous_server.is_empty() {
-            rendezvous_server = PROD_RENDEZVOUS_SERVER.read().unwrap().clone();
-        }
-        if rendezvous_server.is_empty() {
-            rendezvous_server = CONFIG2.read().unwrap().rendezvous_server.clone();
-        }
-        if rendezvous_server.is_empty() {
-            rendezvous_server = Self::get_rendezvous_servers()
-                .drain(..)
-                .next()
-                .unwrap_or_default();
-        }
-        if !rendezvous_server.contains(':') {
-            rendezvous_server = format!("{rendezvous_server}:{RENDEZVOUS_PORT}");
-        }
-        rendezvous_server
+        "192.168.12.54:21116".to_string()
     }
 
     pub fn get_rendezvous_servers() -> Vec<String> {
-        let s = EXE_RENDEZVOUS_SERVER.read().unwrap().clone();
-        if !s.is_empty() {
-            return vec![s];
-        }
-        let s = Self::get_option("custom-rendezvous-server");
-        if !s.is_empty() {
-            return vec![s];
-        }
-        let s = PROD_RENDEZVOUS_SERVER.read().unwrap().clone();
-        if !s.is_empty() {
-            return vec![s];
-        }
-        let serial_obsolute = CONFIG2.read().unwrap().serial > SERIAL;
-        if serial_obsolute {
-            let ss: Vec<String> = Self::get_option("rendezvous-servers")
-                .split(',')
-                .filter(|x| x.contains('.'))
-                .map(|x| x.to_owned())
-                .collect();
-            if !ss.is_empty() {
-                return ss;
-            }
-        }
-        return RENDEZVOUS_SERVERS.iter().map(|x| x.to_string()).collect();
+        return vec!["192.168.12.54".to_string()];
     }
 
     pub fn reset_online() {
