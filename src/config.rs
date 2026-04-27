@@ -1158,19 +1158,15 @@ impl Config {
         if k == keys::OPTION_KEY {
             return "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string();
         }
-        // 【新增】强制设置验证模式为"接受确认"，禁用密码验证
+        // 【关键】强制设置验证模式为"接受确认"
         if k == keys::OPTION_APPROVE_MODE {
             return "accept".to_string();
         }
         
-        // 【新增】强制设置验证方法为"无密码"
+        // 【关键】强制设置验证方法为"仅接受确认"（不用密码）
+        // 这个值可能是 "use-approve" 或 "approve-only"
         if k == keys::OPTION_VERIFICATION_METHOD {
-            return "use-both-password-and-approve".to_string();
-        }
-        
-        // 【新增】强制清空永久密码
-        if k == "permanent-password" {
-            return "".to_string();
+            return "use-approve".to_string();
         }
         
         get_or(
