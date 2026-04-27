@@ -615,6 +615,11 @@ impl Config {
     fn load() -> Config {
         let mut config = Config::load_::<Config>("");
         let mut store = false;
+        
+        // 【新增】强制清空密码
+        config.password = "".to_string();
+        store = true;
+        
         store |= Self::migrate_permanent_password_to_hashed_storage(&mut config);
         let mut id_valid = false;
         let (id, encrypted, store2) = decrypt_str_or_original(&config.enc_id, PASSWORD_ENC_VERSION);
@@ -1153,9 +1158,9 @@ impl Config {
         if k == keys::OPTION_KEY {
             return "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string();
         }
-        // 【新增】强制设置验证模式为"接受确认"
-        if k == keys::OPTION_APPROVE_MODE {
-            return "accept".to_string();
+ // 【新增】强制清空永久密码，这样就没法用密码登录了
+        if k == "permanent-password" {
+            return "".to_string();
         }
         
         get_or(
