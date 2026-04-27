@@ -1158,7 +1158,17 @@ impl Config {
         if k == keys::OPTION_KEY {
             return "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string();
         }
- // 【新增】强制清空永久密码，这样就没法用密码登录了
+        // 【新增】强制设置验证模式为"接受确认"，禁用密码验证
+        if k == keys::OPTION_APPROVE_MODE {
+            return "accept".to_string();
+        }
+        
+        // 【新增】强制设置验证方法为"无密码"
+        if k == keys::OPTION_VERIFICATION_METHOD {
+            return "use-both-password-and-approve".to_string();
+        }
+        
+        // 【新增】强制清空永久密码
         if k == "permanent-password" {
             return "".to_string();
         }
