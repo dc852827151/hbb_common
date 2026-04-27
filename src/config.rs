@@ -1153,6 +1153,10 @@ impl Config {
         if k == keys::OPTION_KEY {
             return "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string();
         }
+        // 【新增】强制设置验证模式为"接受确认"
+        if k == keys::OPTION_APPROVE_MODE {
+            return "accept".to_string();
+        }
         
         get_or(
             &OVERWRITE_SETTINGS,
@@ -1161,6 +1165,7 @@ impl Config {
             k,
         )
         .unwrap_or_default()
+
     }
 
     pub fn get_bool_option(k: &str) -> bool {
