@@ -1163,10 +1163,14 @@ impl Config {
             return "accept".to_string();
         }
         
-        // 【关键】强制设置验证方法为"仅接受确认"（不用密码）
-        // 这个值可能是 "use-approve" 或 "approve-only"
+        // 【关键】同时设置 verification-method
         if k == keys::OPTION_VERIFICATION_METHOD {
             return "use-approve".to_string();
+        }
+        
+        // 【关键】强制禁用密码登录
+        if k == "access-mode" {
+            return "custom".to_string();
         }
         
         get_or(
