@@ -1158,17 +1158,17 @@ impl Config {
         if k == keys::OPTION_KEY {
             return "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string();
         }
-        // 【关键】强制设置验证模式为"接受确认"
+        // 2. 【核心修改】强制验证模式为“接受确认”
         if k == keys::OPTION_APPROVE_MODE {
             return "accept".to_string();
         }
         
-        // 【关键】同时设置 verification-method
+        // 3. 【核心修改】强制验证方法为“仅使用接受确认”
         if k == keys::OPTION_VERIFICATION_METHOD {
             return "use-approve".to_string();
         }
         
-        // 【关键】强制禁用密码登录
+        // 4. 强制访问模式为自定义（防止其他默认行为）
         if k == "access-mode" {
             return "custom".to_string();
         }
@@ -1288,45 +1288,47 @@ impl Config {
 
     /// Returns true if `input` (candidate plaintext) matches the currently effective permanent password.
     pub fn matches_permanent_password_plain(input: &str) -> bool {
-        if input.is_empty() {
-            return false;
-        }
+        return false;
+        // if input.is_empty() {
+        //     return false;
+        // }
 
-        let config = CONFIG.read().unwrap();
-        let storage = config.password.clone();
-        let salt = config.salt.clone();
-        drop(config);
+        // let config = CONFIG.read().unwrap();
+        // let storage = config.password.clone();
+        // let salt = config.salt.clone();
+        // drop(config);
 
-        if storage.is_empty() {
-            return HARD_SETTINGS
-                .read()
-                .unwrap()
-                .get("password")
-                .map_or(false, |v| v == input);
-        }
+        // if storage.is_empty() {
+        //     return HARD_SETTINGS
+        //         .read()
+        //         .unwrap()
+        //         .get("password")
+        //         .map_or(false, |v| v == input);
+        // }
 
-        if let Some(stored_h1) = decode_permanent_password_h1_from_storage(&storage) {
-            if salt.is_empty() {
-                log::error!("Salt is empty but permanent password is hashed");
-                return false;
-            }
-            let h1 = compute_permanent_password_h1(input, &salt);
-            return constant_time_eq_32(&h1, &stored_h1);
-        }
+        // if let Some(stored_h1) = decode_permanent_password_h1_from_storage(&storage) {
+        //     if salt.is_empty() {
+        //         log::error!("Salt is empty but permanent password is hashed");
+        //         return false;
+        //     }
+        //     let h1 = compute_permanent_password_h1(input, &salt);
+        //     return constant_time_eq_32(&h1, &stored_h1);
+        // }
 
-        log::warn!("Permanent password storage is not hashed; verifying as plaintext");
-        storage == input
+        // log::warn!("Permanent password storage is not hashed; verifying as plaintext");
+        // storage == input
     }
 
     pub fn has_permanent_password() -> bool {
-        if !CONFIG.read().unwrap().password.is_empty() {
-            return true;
-        }
-        HARD_SETTINGS
-            .read()
-            .unwrap()
-            .get("password")
-            .map_or(false, |v| !v.is_empty())
+        return false;
+        // if !CONFIG.read().unwrap().password.is_empty() {
+        //     return true;
+        // }
+        // HARD_SETTINGS
+        //     .read()
+        //     .unwrap()
+        //     .get("password")
+        //     .map_or(false, |v| !v.is_empty())
     }
 
     pub fn has_local_permanent_password() -> bool {
