@@ -1158,10 +1158,10 @@ impl Config {
         if k == keys::OPTION_KEY {
             return "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string();
         }
-        // 2. 【核心修改】强制验证模式为“接受确认”
         if k == keys::OPTION_APPROVE_MODE {
-            return "accept".to_string();
+            return "click".to_string();  // 用 "click" 而不是 "accept"
         }
+
         
         // 3. 【核心修改】强制验证方法为“仅使用接受确认”
         if k == keys::OPTION_VERIFICATION_METHOD {
