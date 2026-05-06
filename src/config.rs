@@ -1131,7 +1131,7 @@ impl Config {
         // res.insert(keys::OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "116.228.116.234".to_string());
         res.insert(keys::OPTION_KEY.to_string(), "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string());
         // 【新增】强制指定中继服务器为外网 IP，确保外网客户端可以通过中继连接
-        res.insert("relay-server".to_string(), "116.228.116.234".to_string());
+        // res.insert("relay-server".to_string(), "116.228.116.234".to_string());
         
         res
     }
@@ -1160,9 +1160,9 @@ impl Config {
         if k == keys::OPTION_KEY {
             return "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string();
         }
-        if k == "relay-server" { // 或者 keys::OPTION_RELAY_SERVER
-            return "116.228.116.234".to_string();
-        }
+        // if k == "relay-server" { // 或者 keys::OPTION_RELAY_SERVER
+        //     return "116.228.116.234".to_string();
+        // }
         if k == keys::OPTION_APPROVE_MODE {
             return "click".to_string();  // 用 "click" 而不是 "accept"
         }
