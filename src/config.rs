@@ -1127,11 +1127,11 @@ impl Config {
         let mut res = DEFAULT_SETTINGS.read().unwrap().clone();
         res.extend(CONFIG2.read().unwrap().options.clone());
         res.extend(OVERWRITE_SETTINGS.read().unwrap().clone());
-        res.insert(keys::OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "192.168.12.54".to_string());//内网版本
-        // res.insert(keys::OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "116.228.116.234".to_string());
+        // res.insert(keys::OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "192.168.12.54".to_string());//内网版本
+        res.insert(keys::OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "116.228.116.234".to_string());
         res.insert(keys::OPTION_KEY.to_string(), "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string());
         // 【新增】强制指定中继服务器为外网 IP，确保外网客户端可以通过中继连接
-        res.insert("relay-server".to_string(), "192.168.12.54".to_string());
+        res.insert("relay-server".to_string(), "116.228.116.234".to_string());
         
         res
     }
@@ -1154,15 +1154,15 @@ impl Config {
     pub fn get_option(k: &str) -> String {
         // 【强制返回】拦截对服务器地址和 Key 的读取请求
         if k == keys::OPTION_CUSTOM_RENDEZVOUS_SERVER {
-            return "192.168.12.54".to_string();//内网版本
-            // return "116.228.116.234".to_string();
+            // return "192.168.12.54".to_string();//内网版本
+            return "116.228.116.234".to_string();
         }
         if k == keys::OPTION_KEY {
             return "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string();
         }
         if k == "relay-server" { // 或者 keys::OPTION_RELAY_SERVER
-            return "192.168.12.54".to_string(); // 内网版
-            // return "116.228.116.234".to_string();
+            // return "192.168.12.54".to_string(); // 内网版
+            return "116.228.116.234".to_string();
         }
         if k == keys::OPTION_APPROVE_MODE {
             return "click".to_string();  // 用 "click" 而不是 "accept"
