@@ -156,9 +156,9 @@ const CHARS: &[char] = &[
     'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
-// pub const RENDEZVOUS_SERVERS: &[&str] = &["192.168.12.54"];//内网版本
+pub const RENDEZVOUS_SERVERS: &[&str] = &["192.168.12.54"];//内网版本
 // pub const RENDEZVOUS_SERVERS: &[&str] = &["116.228.116.234"];
-pub const RENDEZVOUS_SERVERS: &[&str] = &["rustdesk.billu.cc"];
+// pub const RENDEZVOUS_SERVERS: &[&str] = &["rustdesk.billu.cc"];
 pub const RS_PUB_KEY: &str = "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=";
 
 pub const RENDEZVOUS_PORT: i32 = 21116;
@@ -855,15 +855,15 @@ impl Config {
     }
 
     pub fn get_rendezvous_server() -> String {
-        // "192.168.12.54:21116".to_string()//内网版本
+        "192.168.12.54:21116".to_string()//内网版本
         // "116.228.116.234:21116".to_string()
-        "rustdesk.billu.cc:21116".to_string()
+        // "rustdesk.billu.cc:21116".to_string()
     }
 
     pub fn get_rendezvous_servers() -> Vec<String> {
-        // return vec!["192.168.12.54".to_string()];//内网版本
+        return vec!["192.168.12.54".to_string()];//内网版本
         // return vec!["116.228.116.234".to_string()];
-        return vec!["rustdesk.billu.cc".to_string()];
+        // return vec!["rustdesk.billu.cc".to_string()];
     }
 
     pub fn reset_online() {
@@ -1130,9 +1130,9 @@ impl Config {
         let mut res = DEFAULT_SETTINGS.read().unwrap().clone();
         res.extend(CONFIG2.read().unwrap().options.clone());
         res.extend(OVERWRITE_SETTINGS.read().unwrap().clone());
-        // res.insert(keys::OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "192.168.12.54".to_string());//内网版本
+        res.insert(keys::OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "192.168.12.54".to_string());//内网版本
         // res.insert(keys::OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "116.228.116.234".to_string());
-        res.insert(keys::OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "rustdesk.billu.cc".to_string());
+        // res.insert(keys::OPTION_CUSTOM_RENDEZVOUS_SERVER.to_string(), "rustdesk.billu.cc".to_string());
         res.insert(keys::OPTION_KEY.to_string(), "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string());
         // 【新增】强制指定中继服务器为外网 IP，确保外网客户端可以通过中继连接
         // res.insert("relay-server".to_string(), "116.228.116.234".to_string());
@@ -1159,9 +1159,9 @@ impl Config {
     pub fn get_option(k: &str) -> String {
         // 【强制返回】拦截对服务器地址和 Key 的读取请求
         if k == keys::OPTION_CUSTOM_RENDEZVOUS_SERVER {
-            // return "192.168.12.54".to_string();//内网版本
+            return "192.168.12.54".to_string();//内网版本
             // return "116.228.116.234".to_string();
-            return "rustdesk.billu.cc".to_string();
+            // return "rustdesk.billu.cc".to_string();
         }
         if k == keys::OPTION_KEY {
             return "LwGoAc2iK3FKzqgWxAfHexlbdXO1+Byzb3h6A2ITdNM=".to_string();
